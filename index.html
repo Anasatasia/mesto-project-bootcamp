@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <link rel="stylesheet" href="./pages/index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Место</title>
+</head>
+<body class="body">
+  <div class="popup">
+    <form class="popup__container">
+      <h2 class="popup__heading">Редактировать профиль</h2>
+      <fieldset class="popup__input-container">
+        <input class="popup__input" type="text" required value="Жак-Ив Кусто">
+        <input class="popup__input" type="text" required value="Исследователь океана">
+        <button class="popup__button">
+          Сохранить
+        </button>
+      </fieldset>
+      <button class="popup__close-button"></button>
+    </form>
+  </div>
+  <div class="page">
+    <header class="header">
+      <img src="./images/logo.svg" class="header__logo" alt="Логотип">
+    </header>
+    <main class="content">
+      <section class="profile">
+        <div class="profile__content">
+          <img src="./images/avatar.jpg" alt="Аватар" class="profile__avatar">
+          <div class="profile__info">
+            <h2 class="profile__name">Жак-Ив Кусто</h2>
+            <button class="profile__edit-button"></button>
+            <p class="profile__description">Исследователь океана</p>
+          </div>
+        </div>
+        <button class="profile__add-button"></button>
+      </section>
+      <section class="cards">
+        <div class="card">
+          <img class="card__image" src="./images/Karachaevsk.png" alt="Карачаевск">
+          <div class="card__content">
+            <p class="card__name">Карачаевск</p>
+            <button class="card__button"></button>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card__image" src="./images/Elbrus.png" alt="Гора Эльбрус">
+          <div class="card__content">
+            <p class="card__name">Гора Эльбрус</p>
+            <button class="card__button"></button>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card__image" src="./images/Montain.png" alt="Домбай">
+          <div class="card__content">
+            <p class="card__name">Домбай</p>
+            <button class="card__button"></button>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card__image" src="./images/Elbrus.png" alt="Гора Эльбрус">
+          <div class="card__content">
+            <p class="card__name">Гора Эльбрус</p>
+            <button class="card__button"></button>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card__image" src="./images/Montain.png" alt="Домбай">
+          <div class="card__content">
+            <p class="card__name">Домбай</p>
+            <button class="card__button"></button>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card__image" src="./images/Karachaevsk.png" alt="Карачаевск">
+          <div class="card__content">
+            <p class="card__name">Карачаево-Черкессия</p>
+            <button class="card__button"></button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">
+        &copy; 2023 Mesto Russia
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
