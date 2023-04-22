@@ -8,7 +8,7 @@
 @media (max-width: 845px) {
     .profile__info {
             grid-template-columns: 1fr 18px;
-            row-gap: 14px;
-            column-gap: 10px;
+            row-gap: 10px;
+            column-gap: 8px;
         }
 }

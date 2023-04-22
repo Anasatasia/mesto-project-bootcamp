@@ -7,19 +7,6 @@
   <title>Место</title>
 </head>
 <body class="body">
-  <div class="popup">
-    <form class="popup__container">
-      <h2 class="popup__heading">Редактировать профиль</h2>
-      <fieldset class="popup__input-container">
-        <input class="popup__input" type="text" required value="Жак-Ив Кусто">
-        <input class="popup__input" type="text" required value="Исследователь океана">
-        <button class="popup__button">
-          Сохранить
-        </button>
-      </fieldset>
-      <button class="popup__close-button"></button>
-    </form>
-  </div>
   <div class="page">
     <header class="header">
       <img src="./images/logo.svg" class="header__logo" alt="Логотип">
@@ -29,56 +16,56 @@
         <div class="profile__content">
           <img src="./images/avatar.jpg" alt="Аватар" class="profile__avatar">
           <div class="profile__info">
-            <h2 class="profile__name">Жак-Ив Кусто</h2>
-            <button class="profile__edit-button"></button>
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button class="profile__edit-button" type="button"></button>
             <p class="profile__description">Исследователь океана</p>
           </div>
         </div>
-        <button class="profile__add-button"></button>
+        <button class="profile__add-button" type="button"></button>
       </section>
       <section class="cards">
-        <div class="card">
+        <article class="card">
           <img class="card__image" src="./images/Karachaevsk.png" alt="Карачаевск">
           <div class="card__content">
-            <p class="card__name">Карачаевск</p>
-            <button class="card__button"></button>
+            <h2 class="card__name">Карачаевск</h2>
+            <button class="card__button" type="button"></button>
           </div>
-        </div>
-        <div class="card">
+        </article>
+        <article class="card">
           <img class="card__image" src="./images/Elbrus.png" alt="Гора Эльбрус">
           <div class="card__content">
-            <p class="card__name">Гора Эльбрус</p>
-            <button class="card__button"></button>
+            <h2 class="card__name">Гора Эльбрус</h2>
+            <button class="card__button" type="button"></button>
           </div>
-        </div>
-        <div class="card">
+        </article>
+        <article class="card">
           <img class="card__image" src="./images/Montain.png" alt="Домбай">
           <div class="card__content">
-            <p class="card__name">Домбай</p>
-            <button class="card__button"></button>
+            <h2 class="card__name">Домбай</h2>
+            <button class="card__button" type="button"></button>
           </div>
-        </div>
-        <div class="card">
+        </article>
+        <article class="card">
           <img class="card__image" src="./images/Elbrus.png" alt="Гора Эльбрус">
           <div class="card__content">
-            <p class="card__name">Гора Эльбрус</p>
-            <button class="card__button"></button>
+            <h2 class="card__name">Гора Эльбрус</h2>
+            <button class="card__button" type="button"></button>
           </div>
-        </div>
-        <div class="card">
+        </article>
+        <article class="card">
           <img class="card__image" src="./images/Montain.png" alt="Домбай">
           <div class="card__content">
-            <p class="card__name">Домбай</p>
-            <button class="card__button"></button>
+            <h2 class="card__name">Домбай</h2>
+            <button class="card__button" type="button"></button>
           </div>
-        </div>
-        <div class="card">
+        </article>
+        <article class="card">
           <img class="card__image" src="./images/Karachaevsk.png" alt="Карачаевск">
           <div class="card__content">
-            <p class="card__name">Карачаево-Черкессия</p>
-            <button class="card__button"></button>
+            <h2 class="card__name">Карачаево-Черкессия</h2>
+            <button class="card__button" type="button"></button>
           </div>
-        </div>
+        </article>
       </section>
     </main>
     <footer class="footer">
@@ -86,6 +73,21 @@
         &copy; 2023 Mesto Russia
       </p>
     </footer>
+    <div class="popup">
+      <div class="popup__container">
+        <form class="popup__form" name="profile-form">
+          <h2 class="popup__heading">Редактировать профиль</h2>
+          <fieldset class="popup__input-container">
+            <input class="popup__input" type="text" required value="Жак-Ив Кусто" id="name" name="name-input">
+            <input class="popup__input" type="text" required value="Исследователь океана" id="description" name="description-input">
+            <button class="popup__button" type="submit">
+              Сохранить
+            </button>
+          </fieldset>
+          <button class="popup__close-button" type="button"></button>
+        </form>
+      </div>
+    </div>
   </div>
 </body>
 </html>

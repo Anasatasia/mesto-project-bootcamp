@@ -4,6 +4,7 @@
     background-image: url(../../../images/Like.svg);
     height: 19px;
     width: 22px;
+    cursor: pointer;
     border: none;
     outline: none;
     background-color: transparent;
