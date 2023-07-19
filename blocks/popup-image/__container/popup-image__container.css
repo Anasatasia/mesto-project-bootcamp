@@ -1,0 +1,7 @@
+.popup-image__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 5;
+}
