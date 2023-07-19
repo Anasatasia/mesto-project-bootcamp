@@ -14,7 +14,7 @@
 .popup__close-button:hover {
     opacity: 60%;
 }
-@media (max-width: 845px) {
+@media (max-width: 880px) {
     .popup__close-button {
             background-size: cover;
             height: 20px;
