@@ -1,4 +1,4 @@
-import {formList} from "../index";
+import {page} from "../index";
 
 export function showError(input, form, errorMessage, settings) {
     input.classList.add(settings.inputErrorClass);
@@ -56,7 +56,8 @@ export function setEventListener(form, settings) {
     })
 }
 
-export function setValidation(settings) {
+export function enableValidation(settings) {
+    const formList = page.querySelectorAll(settings.formSelector);
     formList.forEach((form) => {
         setEventListener(form, settings);
     })

@@ -1,11 +1,11 @@
 import './styles/index.css';
 import {
-    closePopupByEsc, closePopupOverlay,
+    closePopupOverlay,
     fillProfileInputs,
     handlePlaceFormSubmit,
     handleProfileFormSubmit
 } from "./components/modal";
-import {setValidation} from "./components/validate";
+import {enableValidation} from "./components/validate";
 import {addCard, initialCards} from "./components/card";
 import {closePopup, openPopup} from "./components/utils";
 export const page = document.querySelector(".page");
@@ -22,15 +22,25 @@ export const placePopup = page.querySelector("#place-popup");
 const placeCloseButton = placePopup.querySelector(".popup__close-button");
 const placeAddButton = page.querySelector(".profile__add-button");
 const placeForm = placePopup.querySelector(".popup__form");
+export const placeInputList = placePopup.querySelectorAll(".popup__input");
+export const placeSubmitButton = placePopup.querySelector(".popup__button");
 export const imagePopup = page.querySelector(".popup-image");
 export const imagePopupImg = imagePopup.querySelector(".popup-image__image");
 export const imagePopupTitle = imagePopup.querySelector(".popup-image__title");
 const imagePopupCloseButton = imagePopup.querySelector(".popup__close-button");
-export const formList = page.querySelectorAll(".popup__form");
 const popupList = page.querySelectorAll(".popup");
 
 // включение валидации вызовом enableValidation
 // все настройки передаются при вызове
+
+export const settings = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_invalid',
+    inputErrorClass: 'popup__input_invalid',
+    errorClass: 'popup__input-error_invalid'
+}
 
 initialCards.forEach((cardElement) => {
     addCard(cardElement.name, cardElement.link);
@@ -61,17 +71,8 @@ placeForm.addEventListener('submit', handlePlaceFormSubmit);
 
 profileForm.addEventListener('submit', handleProfileFormSubmit);
 
-setValidation({
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_invalid',
-    inputErrorClass: 'popup__input_invalid',
-    errorClass: 'popup__input-error_invalid'
-});
+enableValidation(settings);
 
 popupList.forEach((popup) => {
     closePopupOverlay(popup);
 })
-
-closePopupByEsc();

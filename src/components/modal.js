@@ -1,13 +1,15 @@
 import {
-    placePopup,
+    placeInputList,
+    placePopup, placeSubmitButton,
     profileDescription,
     profileInputDescription,
     profileInputName,
     profileName,
-    profilePopup
+    profilePopup, settings
 } from "../index";
 import {closePopup} from "./utils";
 import {addCard} from "./card";
+import {changeButtonState} from "./validate";
 
 export const fillProfileInputs = function () {
     profileInputDescription.value = profileDescription.textContent;
@@ -21,6 +23,7 @@ export function handlePlaceFormSubmit(evt) {
     addCard(place_popup_name.value, place_popup_link.value);
     place_popup_name.value = '';
     place_popup_link.value = '';
+    changeButtonState(placeSubmitButton, placeInputList, settings)
     closePopup(placePopup);
 }
 
@@ -40,13 +43,11 @@ export function closePopupOverlay(popup) {
     })
 }
 
-export function closePopupByEsc() {
-    document.addEventListener("keydown", function (evt) {
-        if (evt.key === "Escape") {
-            const openPopup = document.querySelector(".popup_opened");
-            if (openPopup !== null) {
-                closePopup(openPopup);
-            }
+export function closePopupByEsc(evt) {
+    if (evt.key === "Escape") {
+        const openPopup = document.querySelector(".popup_opened");
+        if (openPopup !== null) {
+            closePopup(openPopup);
         }
-    })
+    }
 }
