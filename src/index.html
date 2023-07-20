@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <link rel="stylesheet" href="./pages/index.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Место</title>
@@ -9,12 +8,12 @@
 <body class="body">
   <div class="page">
     <header class="header">
-      <img src="./images/logo.svg" class="header__logo" alt="Логотип">
+      <img src="<%=require('./images/logo.svg')%>" class="header__logo" alt="Логотип">
     </header>
     <main class="content">
       <section class="profile">
         <div class="profile__content">
-          <img src="./images/avatar.jpg" alt="Аватар" class="profile__avatar">
+          <img src="<%=require('./images/avatar.jpg')%>" alt="Аватар" class="profile__avatar">
           <div class="profile__info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
             <button class="profile__edit-button" type="button"></button>
@@ -36,8 +35,10 @@
         <form class="popup__form" id="profile-popup-form">
           <h2 class="popup__heading">Редактировать профиль</h2>
           <fieldset class="popup__input-container">
-            <input class="popup__input" type="text" required value="Жак-Ив Кусто" id="profile_popup_name">
-            <input class="popup__input" type="text" required value="Исследователь океана" id="profile_popup_description">
+            <input class="popup__input" type="text" required value="Жак-Ив Кусто" id="profile_popup_name" minlength="2" maxlength="40">
+            <span class="popup__input-error" id="profile_popup_name-error">Пук</span>
+            <input class="popup__input" type="text" required value="Исследователь океана" id="profile_popup_description" minlength="2" maxlength="200">
+            <span class="popup__input-error" id="profile_popup_description-error">пик</span>
             <button class="popup__button" type="submit">
               Сохранить
             </button>
@@ -51,8 +52,10 @@
         <form class="popup__form" id="place-popup-form">
           <h2 class="popup__heading">Новое место</h2>
           <fieldset class="popup__input-container">
-            <input class="popup__input" type="text" required id="place_popup_name" placeholder="Название">
-            <input class="popup__input" type="text" required id="place_popup_link" placeholder="Ссылка на картинку">
+            <input class="popup__input" type="text" required id="place_popup_name" placeholder="Название" minlength="2" maxlength="30">
+            <span class="popup__input-error" id="place_popup_name-error"></span>
+            <input class="popup__input" type="url" required id="place_popup_link" placeholder="Ссылка на картинку">
+            <span class="popup__input-error" id="place_popup_link-error"></span>
             <button class="popup__button" type="submit">
               Создать
             </button>
@@ -63,14 +66,14 @@
     </div>
     <div class="popup popup-image">
       <div class="popup-image__container">
-        <img src="./images/Elbrus.png" alt="Место" class="popup-image__image">
-        <p class="popup-image__title">Карачаевск</p>
+        <img src="" alt="Место" class="popup-image__image">
+        <p class="popup-image__title"></p>
         <button type="button" class="popup__close-button"></button>
       </div>
     </div>
     <template id="card-template">
       <article class="card">
-        <img class="card__image" src="./images/Karachaevsk.png" alt="Место">
+        <img class="card__image" src="" alt="Место">
         <div class="card__content">
           <h2 class="card__name"></h2>
           <button class="card__button" type="button"></button>
@@ -79,6 +82,5 @@
       </article>
     </template>
   </div>
-  <script src="scripts/script.js"></script>
 </body>
 </html>
