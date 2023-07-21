@@ -11,20 +11,14 @@ import {
 import {closePopup} from "./utils";
 import {addCard} from "./card";
 import {changeButtonState} from "./validate";
-import {getProfile, patchAvatar, patchProfile, postCard} from "./api";
+import {patchAvatar, patchProfile, postCard} from "./api";
 
 export let authorId = '';
-export const fillProfile = function () {
-    getProfile()
-        .then(data => {
-        profileName.textContent = data.name
-        profileDescription.textContent = data.about
-        profileAvatar.src = data.avatar
-            authorId = data._id
-    })
-        .then(() => fillProfileInputs())
-        .catch((err) => console.log(err))
-
+export const fillProfile = function (name, about, avatarLink, id) {
+    profileName.textContent = name;
+    profileDescription.textContent = about;
+    profileAvatar.src = avatarLink;
+    authorId = id;
 }
 
 export const fillProfileInputs = function () {
@@ -50,7 +44,7 @@ export function handlePlaceFormSubmit(evt) {
         .then(() => {
             closePopup(placePopup)
         })
-        .catch((err) => console.log(err))
+        .catch(console.error)
         .finally(() => {
             placeSubmitButton.textContent = "Создать";
         })
@@ -64,7 +58,7 @@ export function handleAvatarFormSubmit(evt) {
         profileAvatar.src = data.avatar;
     })
         .then(() => closePopup(avatarPopup))
-        .catch((err) => console.log(err))
+        .catch(console.error)
         .finally(() => {
             avatarSubmitButton.textContent = "Сохранить";
         })
@@ -79,7 +73,7 @@ export function handleProfileFormSubmit(evt) {
         profileDescription.textContent = data.about
     })
         .then(() => closePopup(profilePopup))
-        .catch((err) => console.log(err))
+        .catch(console.error)
         .finally(() => {
             profileSubmitButton.textContent = "Сохранить";
         })

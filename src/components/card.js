@@ -1,6 +1,6 @@
 import {cards, imagePopup, imagePopupImg, imagePopupTitle, page} from "../index";
 import {openPopup} from "./utils";
-import {deleteCard, deleteLike, getCards, putLike} from "./api";
+import {deleteCard, deleteLike, putLike} from "./api";
 import {authorId} from "./modal";
 
 
@@ -12,7 +12,7 @@ function toggleLike(evt, id, likes, cardLikeNumber) {
             .then(() => {
                 evt.target.classList.remove("card__button_active");
             })
-            .catch((err) => console.log(err))
+            .catch(console.error)
     }
     else {
         putLike(id).then((data) => {
@@ -21,7 +21,7 @@ function toggleLike(evt, id, likes, cardLikeNumber) {
             .then(() => {
                 evt.target.classList.add("card__button_active");
             })
-            .catch((err) => console.log(err))
+            .catch(console.error)
     }
 }
 
@@ -52,7 +52,7 @@ export function createCard(name, link, likes, id, owner) {
             deleteCard(id).then(() => {
                 card.remove();
             })
-                .catch((err) => console.log(err))
+                .catch(console.error)
         })
     }
     cardImg.addEventListener('click', function (evt) {
@@ -69,11 +69,9 @@ export function addCard(name, link, likes, id, owner) {
     cards.prepend(card);
 }
 
-export function initialCards() {
-    getCards().then((datas) => {
-        datas.forEach((data) => {
-            addCard(data.name, data.link, data.likes, data._id, data.owner);
-        })
+export function initialCards(cardsData) {
+    console.log(cardsData);
+    cardsData.forEach((data) => {
+        addCard(data.name, data.link, data.likes, data._id, data.owner);
     })
-        .catch((err) => console.log(err))
 }

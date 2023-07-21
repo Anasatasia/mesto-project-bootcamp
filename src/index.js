@@ -8,6 +8,7 @@ import {
 import {enableValidation} from "./components/validate";
 import {closePopup, openPopup} from "./components/utils";
 import {initialCards} from "./components/card";
+import {getCards, getProfile} from "./components/api";
 export const page = document.querySelector(".page");
 const profileEditButton = page.querySelector(".profile__edit-button");
 const profileForm = page.querySelector("#profile-popup-form");
@@ -44,8 +45,6 @@ export const settings = {
     inputErrorClass: 'popup__input_invalid',
     errorClass: 'popup__input-error_invalid'
 }
-
-fillProfile();
 
 profileEditButton.addEventListener('click', (evt) => {
     fillProfileInputs();
@@ -88,4 +87,11 @@ popupList.forEach((popup) => {
     closePopupOverlay(popup);
 })
 
-initialCards();
+let userData, cardsData;
+Promise.all([getProfile(), getCards()])
+    .then(data => ([userData, cardsData] = data))
+    .then(([userData, cardsData]) => {
+        fillProfile(userData.name, userData.about, userData.avatar, userData._id);
+        initialCards(cardsData);
+    })
+    .catch(console.error);
