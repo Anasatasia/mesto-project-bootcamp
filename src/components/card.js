@@ -1,46 +1,60 @@
 import {cards, imagePopup, imagePopupImg, imagePopupTitle, page} from "../index";
 import {openPopup} from "./utils";
+import {deleteCard, deleteLike, getCards, putLike} from "./api";
+import {authorId} from "./modal";
 
-export const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+
+function toggleLike(evt, id, likes, cardLikeNumber) {
+    if (evt.target.classList.contains("card__button_active")) {
+        deleteLike(id).then((data) => {
+            cardLikeNumber.textContent = data.likes.length;
+        })
+            .then(() => {
+                evt.target.classList.remove("card__button_active");
+            })
+            .catch((err) => console.log(err))
     }
-];
+    else {
+        putLike(id).then((data) => {
+            cardLikeNumber.textContent = data.likes.length;
+        })
+            .then(() => {
+                evt.target.classList.add("card__button_active");
+            })
+            .catch((err) => console.log(err))
+    }
+}
 
-export function createCard(name, link) {
+export function createCard(name, link, likes, id, owner) {
     const cardTemplate = page.querySelector("#card-template").content;
     const card = cardTemplate.querySelector(".card").cloneNode(true);
     const cardImg = card.querySelector(".card__image");
+    const cardLikeNumber = card.querySelector(".card__like-number");
+    const cardLikeButton = card.querySelector(".card__button");
+    const cardDeleteButton = card.querySelector(".card__delete-button");
+    cardLikeNumber.textContent = likes.length;
     card.querySelector(".card__name").textContent = name;
     cardImg.src = link;
     cardImg.alt = name;
-    card.querySelector(".card__button").addEventListener("click", function (evt) {
-        evt.target.classList.toggle("card__button_active");
+    likes.forEach((like) => {
+        if (like._id === authorId) {
+            cardLikeButton.classList.add("card__button_active");
+        }
     })
-    card.querySelector(".card__delete-button").addEventListener('click', function (evt) {
-        card.remove();
+    if (owner._id !== authorId) {
+        cardDeleteButton.classList.add("card__delete-button_inactive");
+    }
+    cardLikeButton.addEventListener("click", function (evt) {
+        toggleLike(evt, id, likes, cardLikeNumber);
     })
+    if (owner._id === authorId) {
+        cardDeleteButton.addEventListener('click', function (evt) {
+            deleteCard(id).then(() => {
+                card.remove();
+            })
+                .catch((err) => console.log(err))
+        })
+    }
     cardImg.addEventListener('click', function (evt) {
         imagePopupImg.src = link;
         imagePopupTitle.textContent = name;
@@ -50,7 +64,16 @@ export function createCard(name, link) {
     return card;
 }
 
-export function addCard(name, link) {
-    const card = createCard(name, link);
+export function addCard(name, link, likes, id, owner) {
+    const card = createCard(name, link, likes, id, owner);
     cards.prepend(card);
+}
+
+export function initialCards() {
+    getCards().then((datas) => {
+        datas.forEach((data) => {
+            addCard(data.name, data.link, data.likes, data._id, data.owner);
+        })
+    })
+        .catch((err) => console.log(err))
 }

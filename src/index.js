@@ -1,17 +1,18 @@
 import './styles/index.css';
 import {
-    closePopupOverlay,
-    fillProfileInputs,
+    closePopupOverlay, fillProfile,
+    fillProfileInputs, handleAvatarFormSubmit,
     handlePlaceFormSubmit,
     handleProfileFormSubmit
 } from "./components/modal";
 import {enableValidation} from "./components/validate";
-import {addCard, initialCards} from "./components/card";
 import {closePopup, openPopup} from "./components/utils";
+import {initialCards} from "./components/card";
 export const page = document.querySelector(".page");
 const profileEditButton = page.querySelector(".profile__edit-button");
 const profileForm = page.querySelector("#profile-popup-form");
 export const profilePopup = page.querySelector("#profile-popup");
+export const profileSubmitButton = profilePopup.querySelector(".popup__button");
 const profileCloseButton = profilePopup.querySelector(".popup__close-button");
 export const profileInputName = profilePopup.querySelector("#profile_popup_name");
 export const profileInputDescription = profilePopup.querySelector("#profile_popup_description");
@@ -29,10 +30,12 @@ export const imagePopupImg = imagePopup.querySelector(".popup-image__image");
 export const imagePopupTitle = imagePopup.querySelector(".popup-image__title");
 const imagePopupCloseButton = imagePopup.querySelector(".popup__close-button");
 const popupList = page.querySelectorAll(".popup");
-
-// включение валидации вызовом enableValidation
-// все настройки передаются при вызове
-
+export const profileAvatar = page.querySelector(".profile__avatar");
+export const avatarPopup = page.querySelector("#avatar-popup");
+const avatarButton = page.querySelector(".profile__avatar-button");
+const avatarCloseButton = avatarPopup.querySelector(".popup__close-button");
+const avatarForm = avatarPopup.querySelector(".popup__form");
+export const avatarSubmitButton = avatarPopup.querySelector(".popup__button");
 export const settings = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
@@ -42,13 +45,15 @@ export const settings = {
     errorClass: 'popup__input-error_invalid'
 }
 
-initialCards.forEach((cardElement) => {
-    addCard(cardElement.name, cardElement.link);
-})
+fillProfile();
 
 profileEditButton.addEventListener('click', (evt) => {
     fillProfileInputs();
     openPopup(profilePopup);
+})
+
+avatarButton.addEventListener("click", (evt) => {
+    openPopup(avatarPopup);
 })
 
 placeAddButton.addEventListener('click', (evt) => {
@@ -66,13 +71,21 @@ placeCloseButton.addEventListener('click', (evt) => {
     closePopup(placePopup);
 })
 
+avatarCloseButton.addEventListener('click', (evt) => {
+    closePopup(avatarPopup);
+})
+
 
 placeForm.addEventListener('submit', handlePlaceFormSubmit);
 
 profileForm.addEventListener('submit', handleProfileFormSubmit);
+
+avatarForm.addEventListener('submit', handleAvatarFormSubmit);
 
 enableValidation(settings);
 
 popupList.forEach((popup) => {
     closePopupOverlay(popup);
 })
+
+initialCards();

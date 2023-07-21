@@ -1,38 +1,88 @@
 import {
+    avatarPopup, avatarSubmitButton,
     placeInputList,
-    placePopup, placeSubmitButton,
+    placePopup, placeSubmitButton, profileAvatar,
     profileDescription,
     profileInputDescription,
     profileInputName,
     profileName,
-    profilePopup, settings
+    profilePopup, profileSubmitButton, settings
 } from "../index";
 import {closePopup} from "./utils";
 import {addCard} from "./card";
 import {changeButtonState} from "./validate";
+import {getProfile, patchAvatar, patchProfile, postCard} from "./api";
+
+export let authorId = '';
+export const fillProfile = function () {
+    getProfile()
+        .then(data => {
+        profileName.textContent = data.name
+        profileDescription.textContent = data.about
+        profileAvatar.src = data.avatar
+            authorId = data._id
+    })
+        .then(() => fillProfileInputs())
+        .catch((err) => console.log(err))
+
+}
 
 export const fillProfileInputs = function () {
-    profileInputDescription.value = profileDescription.textContent;
-    profileInputName.value = profileName.textContent;
+    profileInputDescription.value = profileName.textContent;
+    profileInputName.value = profileDescription.textContent;
 }
 
 
 export function handlePlaceFormSubmit(evt) {
     evt.preventDefault();
     const {place_popup_name, place_popup_link} = evt.currentTarget.elements;
-    addCard(place_popup_name.value, place_popup_link.value);
-    place_popup_name.value = '';
-    place_popup_link.value = '';
-    changeButtonState(placeSubmitButton, placeInputList, settings)
-    closePopup(placePopup);
+    placeSubmitButton.textContent = "Создание...";
+    postCard(place_popup_name.value, place_popup_link.value).then((data) => {
+        addCard(data.name, data.link, data.likes, data._id, data.owner);
+    })
+        .then(() => {
+            place_popup_name.value = '';
+            place_popup_link.value = '';
+        })
+        .then(() => {
+            changeButtonState(placeSubmitButton, placeInputList, settings)
+        })
+        .then(() => {
+            closePopup(placePopup)
+        })
+        .catch((err) => console.log(err))
+        .finally(() => {
+            placeSubmitButton.textContent = "Создать";
+        })
+}
+
+export function handleAvatarFormSubmit(evt) {
+    evt.preventDefault();
+    const {avatar_popup_link} = evt.currentTarget.elements;
+    avatarSubmitButton.textContent = "Сохранение...";
+    patchAvatar(avatar_popup_link.value).then((data) => {
+        profileAvatar.src = data.avatar;
+    })
+        .then(() => closePopup(avatarPopup))
+        .catch((err) => console.log(err))
+        .finally(() => {
+            avatarSubmitButton.textContent = "Сохранить";
+        })
 }
 
 export function handleProfileFormSubmit(evt) {
     evt.preventDefault();
     const {profile_popup_name, profile_popup_description} = evt.currentTarget.elements;
-    profileName.textContent = profile_popup_name.value;
-    profileDescription.textContent = profile_popup_description.value;
-    closePopup(profilePopup);
+    profileSubmitButton.textContent = "Сохранение...";
+    patchProfile(profile_popup_name.value, profile_popup_description.value).then((data) => {
+        profileName.textContent = data.name
+        profileDescription.textContent = data.about
+    })
+        .then(() => closePopup(profilePopup))
+        .catch((err) => console.log(err))
+        .finally(() => {
+            profileSubmitButton.textContent = "Сохранить";
+        })
 }
 
 export function closePopupOverlay(popup) {

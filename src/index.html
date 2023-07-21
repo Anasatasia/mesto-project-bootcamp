@@ -13,7 +13,12 @@
     <main class="content">
       <section class="profile">
         <div class="profile__content">
-          <img src="<%=require('./images/avatar.jpg')%>" alt="Аватар" class="profile__avatar">
+          <div class="profile__edit-avatar">
+            <div class="profile__avatar-overlay">
+              <button class="profile__avatar-button"></button>
+            </div>
+            <img src="<%=require('./images/avatar.jpg')%>" alt="Аватар" class="profile__avatar">
+          </div>
           <div class="profile__info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
             <button class="profile__edit-button" type="button"></button>
@@ -64,6 +69,21 @@
         </form>
       </div>
     </div>
+    <div class="popup" id="avatar-popup">
+      <div class="popup__container">
+        <form class="popup__form" id="avatar-popup-form">
+          <h2 class="popup__heading">Обновить аватар</h2>
+          <fieldset class="popup__input-container">
+            <input class="popup__input" type="url" required id="avatar_popup_link" placeholder="Cсылка на новый аватар">
+            <span class="popup__input-error" id="avatar_popup_link-error"></span>
+            <button class="popup__button" type="submit">
+              Сохранить
+            </button>
+          </fieldset>
+          <button class="popup__close-button" type="button"></button>
+        </form>
+      </div>
+    </div>
     <div class="popup popup-image">
       <div class="popup-image__container">
         <img src="" alt="Место" class="popup-image__image">
@@ -76,7 +96,10 @@
         <img class="card__image" src="" alt="Место">
         <div class="card__content">
           <h2 class="card__name"></h2>
-          <button class="card__button" type="button"></button>
+          <div class="card__like-container">
+            <button class="card__button" type="button"></button>
+            <p class="card__like-number">5</p>
+          </div>
         </div>
         <button class="card__delete-button" type="button"></button>
       </article>

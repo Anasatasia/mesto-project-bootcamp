@@ -1,0 +1,11 @@
+.profile__avatar-button {
+    flex-shrink: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+    height: 26px;
+    width: 26px;
+    background-image: url("../../../images/Vector.png");
+}
