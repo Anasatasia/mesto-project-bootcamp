@@ -25,10 +25,10 @@
     "postcss-loader": "^7.3.3",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
+    "webpack-dev-server": "^4.15.1",
+    "html-loader": "^4.2.0"
   },
   "dependencies": {
-    "core-js": "^3.31.1",
-    "html-loader": "^4.2.0"
+    "core-js": "^3.31.1"
   }
 }
